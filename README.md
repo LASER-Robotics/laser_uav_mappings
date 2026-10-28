@@ -19,7 +19,7 @@ From this repository:
 gitman install
 ```
 
-The ROG-Map checkout uses `dev/separate_planning_and_control`. The planners
+The ROG-Map checkout uses `stable`. The planners
 collection is separate; SUPER continues to declare a ROS dependency on `rog_map`.
 
 From the workspace root:

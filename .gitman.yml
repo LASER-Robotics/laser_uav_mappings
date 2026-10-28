@@ -2,7 +2,7 @@ location: .gitman
 sources:
 - repo: https://github.com/LASER-Robotics/rog_map.git
   name: rog_map
-  rev: dev/separate_planning_and_control
+  rev: stable
   type: git
   links:
   - source: ''
