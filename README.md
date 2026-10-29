@@ -1,36 +1,42 @@
 # LASER UAV Mappings
 
-Gitman collection of mapping packages for the LASER UAV stack, following the same
-repository layout as `laser_uav_planners` and `laser_uav_lio-s`.
+`laser_uav_mappings` collects the mapping packages used by the LASER UAV System (LUS). ROG-Map builds local occupancy maps, inflates obstacles and can compute distance fields for planning.
+
+This repository manages the ROG-Map checkout through Gitman. The `rog_map` package provides the mapping library, ROS 2 component, launch files and configuration.
+
+## Components
 
 | Mapper | ROS package | Role |
 | --- | --- | --- |
-| ROG-Map | `rog_map` | Local occupancy, inflation and ESDF mapping used by SUPER |
+| [ROG-Map](ros_packages/rog_map/README.md) | `rog_map` | Local occupancy, obstacle inflation, frontier extraction and optional ESDF mapping used by SUPER. |
 
-The repository stores dependencies in `.gitman/` and exposes them through
-`ros_packages/`. It is a repository-only collection, so colcon discovers the
-underlying ROS packages directly.
+## Install and build
 
-## Install
-
-From this repository:
+For a complete LUS setup, follow the [system installation guide](https://github.com/LASER-Robotics/laser_uav_system). To fetch ROG-Map from this repository directly:
 
 ```bash
 gitman install
 ```
 
-The ROG-Map checkout uses `stable`. The planners
-collection is separate; SUPER continues to declare a ROS dependency on `rog_map`.
+Gitman stores the checkout in `.gitman/` and links it under `ros_packages/`. The dependency revision is set in [.gitman.yml](.gitman.yml).
 
-From the workspace root:
+From a ROS 2 workspace containing the component package and its dependencies:
 
 ```bash
-gitman install --root src/laser_uav_mappings
-gitman install --root src/laser_uav_planners
-colcon build --packages-up-to laser_uav_managers
+colcon build --packages-up-to rog_map
 source install/setup.bash
 ```
 
-The mapping package keeps its own configuration and launch files. ROG-Map
-transforms clouds into the odometry frame using timestamped TF. Its implementation
-and interfaces are unchanged by this collection.
+## Use
+
+To run ROG-Map independently:
+
+```bash
+ros2 launch rog_map run_rog_map.launch.py uav_name:=uav1 use_sim_time:=true
+```
+
+Provide odometry and a point cloud, with TF connecting the cloud frame to the odometry frame. The selected YAML configures sensor topics, map dimensions, resolution and visualization.
+
+SUPER embeds the `rog_map_lib` library, so its planning process already contains the map. The standalone component is useful when running mapping independently.
+
+See the [ROG-Map README](ros_packages/rog_map/README.md) for launch arguments, parameters and ROS interfaces. This collection has no node or runtime parameters of its own.
