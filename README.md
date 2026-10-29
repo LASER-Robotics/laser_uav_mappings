@@ -8,7 +8,7 @@ This repository manages the ROG-Map checkout through Gitman. The `rog_map` packa
 
 | Mapper | ROS package | Role |
 | --- | --- | --- |
-| [ROG-Map](ros_packages/rog_map/README.md) | `rog_map` | Local occupancy, obstacle inflation, frontier extraction and optional ESDF mapping used by SUPER. |
+| [ROG-Map](https://github.com/LASER-Robotics/rog_map) | `rog_map` | Local occupancy, obstacle inflation, frontier extraction and optional ESDF mapping used by SUPER. |
 
 ## Install and build
 
@@ -39,4 +39,4 @@ Provide odometry and a point cloud, with TF connecting the cloud frame to the od
 
 SUPER embeds the `rog_map_lib` library, so its planning process already contains the map. The standalone component is useful when running mapping independently.
 
-See the [ROG-Map README](ros_packages/rog_map/README.md) for launch arguments, parameters and ROS interfaces. This collection has no node or runtime parameters of its own.
+See the [ROG-Map README](https://github.com/LASER-Robotics/rog_map) for launch arguments, parameters and ROS interfaces. This collection has no node or runtime parameters of its own.
